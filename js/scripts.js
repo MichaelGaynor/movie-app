@@ -5,15 +5,23 @@ $(document).ready(()=>{
     const nowPlayingUrl = apiBaseUrl + '/movie/now_playing?api_key=' +apiKey
 
     $.getJSON(nowPlayingUrl,(nowPlayingData)=>{
-        var nowPlayingHtml = '';
-        for(let i=0; i < nowPlayingData.results.length; i++){
-            var posterUrl = imageBaseUrl + 'w300' + nowPlayingData.results[i].poster_path;
-            nowPlayingHtml += '<div class="col-sm-6 col-md-3">';
-                nowPlayingHtml += `<img src="${posterUrl}">`;
-            nowPlayingHtml += '</div>';
-        }
+        var nowPlayingHtml = getHTML(nowPlayingData);
         $('#movie-grid').html(nowPlayingHtml);
-    })
+        $('.movie-poster').click(function(){
+            var thisMovieId = $(this).attr('movie-id');
+            // console.log(thisMovieId);
+            var thisMovieUrl = `${apiBaseUrl}/movie/${thisMovieId}?api_key=${apiKey}`;
+            $.getJSON(thisMovieUrl,(thisMovieData)=>{
+                console.log(thisMovieData);
+                $('#myModalLabel').html(thisMovieData.title);
+                $('.modal-body-img').html('<img src="' +imageBaseUrl + 'w780' + thisMovieData.backdrop_path+'">');
+                $('.modal-body').html(thisMovieData.overview);
+                $('#myModal').modal();
+            })
+        });
+    });
+
+
     $('#movie-form').submit((event)=>{
         event.preventDefault();
         var userInput = $('#search-input').val();
@@ -26,11 +34,12 @@ $(document).ready(()=>{
         })
     })
 
+
     function getHTML(data){
         var newHtml = '';
         for(let i=0; i < data.results.length; i++){
             var posterUrl = imageBaseUrl + 'w300' + data.results[i].poster_path;
-            newHtml += '<div class="col-sm-6 col-md-3">';
+            newHtml += '<div class="col-sm-6 col-md-3 movie-poster" movie-id='+data.results[i].id+'>';
                 newHtml += `<img src="${posterUrl}">`;
             newHtml += '</div>';
         }
