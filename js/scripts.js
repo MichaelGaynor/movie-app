@@ -33,8 +33,22 @@ $(document).ready(()=>{
         $.getJSON(searchUrl,(searchMovieData)=>{
             var searchMovieHtml = getHTML(searchMovieData);
             $('#movie-grid').html(searchMovieHtml);
-        })
-    })
+             $('.movie-poster').click(function(){
+                var thisMovieId = $(this).attr('movie-id');
+                // console.log(thisMovieId);
+                var thisMovieUrl = `${apiBaseUrl}/movie/${thisMovieId}?api_key=${apiKey}`;
+                $.getJSON(thisMovieUrl,(thisMovieData)=>{
+                    console.log(thisMovieData);
+                    $('#myModalLabel').html(thisMovieData.title);
+                    $('.tagline').html(thisMovieData.tagline);
+                    // document.getElementById('modal-body-img').outerHTML = '<img src="' +imageBaseUrl + 'w780' + thisMovieData.backdrop_path+'">';
+                    $('.overview').html(thisMovieData.overview);
+                    document.getElementById('modal-body-img').outerHTML = '<img src="' +imageBaseUrl + 'w780' + thisMovieData.backdrop_path+'" id="modal-body-img">';
+                    $('#myModal').modal();
+                })
+            })
+        });
+    });
 
 
     function getHTML(data){
