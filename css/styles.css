@@ -7,6 +7,10 @@ div{
     padding:  5px;
 }
 
+.modal{
+    background-color: teal;
+}
+
 input,button{
     height: 30px;
 }
