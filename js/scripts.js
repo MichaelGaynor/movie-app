@@ -14,8 +14,10 @@ $(document).ready(()=>{
             $.getJSON(thisMovieUrl,(thisMovieData)=>{
                 console.log(thisMovieData);
                 $('#myModalLabel').html(thisMovieData.title);
-                $('.modal-body-img').html('<img src="' +imageBaseUrl + 'w780' + thisMovieData.backdrop_path+'">');
-                $('.modal-body').html(thisMovieData.overview);
+                $('.tagline').html(thisMovieData.tagline);
+                // document.getElementById('modal-body-img').outerHTML = '<img src="' +imageBaseUrl + 'w780' + thisMovieData.backdrop_path+'">';
+                $('.overview').html(thisMovieData.overview);
+                document.getElementById('modal-body-img').outerHTML = '<img src="' +imageBaseUrl + 'w780' + thisMovieData.backdrop_path+'" id="modal-body-img">';
                 $('#myModal').modal();
             })
         });
