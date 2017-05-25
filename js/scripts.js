@@ -73,9 +73,9 @@ $(document).ready(()=>{
             $grid = $('#movie-grid').isotope({
                 itemSelector: '.movie-poster'
             })
-            $grid.imagesLoaded().progress( function() {
-                $grid.isotope('layout');
-            });
+            // $grid.imagesLoaded().progress( function() {
+            //     $grid.isotope('layout');
+            // });
             $('.genre-button').click(function(){
                 $grid.isotope({filter: '.'+this.innerText})
             });
