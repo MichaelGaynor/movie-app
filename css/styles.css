@@ -1,14 +1,23 @@
 body{
-    background-color: indigo;
+    background-color: lavender;
+    margin: 0;
 }
 
 div{
     overflow: hidden;
-    padding:  5px;
+    padding:  5px 0;
+}
+
+div.row{
+    padding:  5px 0;
+}
+
+div#search-container{
+    background-color: indigo;
 }
 
 .modal{
-    background-color: teal;
+    /* background-color: teal; */
 }
 
 input,button{
@@ -22,7 +31,13 @@ button{
 
 img{
     max-width: 100%;
-    max-height: 100%;
+}
+
+img.posters{
+    max-width: 100%;
+    height: 280px;
+    border: 2px solid gold;
+    box-shadow: 1px 1px 15px 5px #333;
 }
 
 p.overview{

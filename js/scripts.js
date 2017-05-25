@@ -12,7 +12,7 @@ $(document).ready(()=>{
             // console.log(thisMovieId);
             var thisMovieUrl = `${apiBaseUrl}/movie/${thisMovieId}?api_key=${apiKey}`;
             $.getJSON(thisMovieUrl,(thisMovieData)=>{
-                console.log(thisMovieData);
+                // console.log(thisMovieData);
                 $('#myModalLabel').html(thisMovieData.title);
                 $('.tagline').html(thisMovieData.tagline);
                 // document.getElementById('modal-body-img').outerHTML = '<img src="' +imageBaseUrl + 'w780' + thisMovieData.backdrop_path+'">';
@@ -38,7 +38,7 @@ $(document).ready(()=>{
                 // console.log(thisMovieId);
                 var thisMovieUrl = `${apiBaseUrl}/movie/${thisMovieId}?api_key=${apiKey}`;
                 $.getJSON(thisMovieUrl,(thisMovieData)=>{
-                    console.log(thisMovieData);
+                    // console.log(thisMovieData);
                     $('#myModalLabel').html(thisMovieData.title);
                     $('.tagline').html(thisMovieData.tagline);
                     // document.getElementById('modal-body-img').outerHTML = '<img src="' +imageBaseUrl + 'w780' + thisMovieData.backdrop_path+'">';
@@ -54,9 +54,15 @@ $(document).ready(()=>{
     function getHTML(data){
         var newHtml = '';
         for(let i=0; i < data.results.length; i++){
-            var posterUrl = imageBaseUrl + 'w300' + data.results[i].poster_path;
             newHtml += '<div class="col-sm-6 col-md-3 movie-poster" movie-id='+data.results[i].id+'>';
-                newHtml += `<img src="${posterUrl}">`;
+                if(data.results[i].poster_path != null){
+                    var posterUrl = imageBaseUrl + 'w300' + data.results[i].poster_path;
+                    newHtml += `<img src="${posterUrl}" class="posters">`;
+                }else{
+                    newHtml += `<div class="replace-poster">`
+                        newHtml += `<h3>${data.results[i].title}</h3>`
+                    newHtml += `</div>`
+                }
             newHtml += '</div>';
         }
         return newHtml;
